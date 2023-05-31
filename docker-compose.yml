@@ -1,0 +1,31 @@
+version: "3"
+networks:
+  chatapp_net:
+    external: false
+
+services:
+  client:
+    container_name: chatapp_client
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    ports:
+      - "4173:4173"
+      - "5173:5173"
+      - "5174:5174"
+    volumes:
+      - "./client/:/workspace/" 
+    networks:
+      - chatapp_net
+
+  server:
+      container_name: chatapp_server
+      build:
+        context: ./server
+        dockerfile: ./Dockerfile
+      ports:
+        - "5000:5000"
+      volumes:
+        - "./server/:/workspace/" 
+      networks:
+        - chatapp_net
