@@ -1,13 +1,16 @@
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
-const playButton = document.querySelector('#playButton');
+let speakericondiv;
 
+
+let currenttxt = '';
 let loadInterval;
 let bot = "fa-solid fa-robot";
 let user = "fa-solid fa-user";
-let isPlaying =true;
-let pauseBtn = "fa-solid fa-pause";
-let playBtn = "fa-solid fa-play";
+
+let play_btn = "fa-solid fa-volume-high";
+let pause_btn = "fa-solid fa-volume-slash";
+let isPlaying = false;
 
 function loader(element) {
   element.textContent = ''
@@ -32,6 +35,31 @@ function typeText(element, text) {
 
 }
 
+const speakText = async (e) => {
+  e.preventDefault();
+  const synth = window.speechSynthesis;
+  synth.cancel();
+  console.log("speaking about to start ...")
+  if (currenttxt.value !== "") {
+    const utterThis = new SpeechSynthesisUtterance(currenttxt);
+    utterThis.onend = () => {
+      console.log("utterance ended!!!")
+      synth.cancel();
+      clearInterval(r);
+    }
+    let r = setInterval(() => {
+      console.log(synth.speaking);
+      synth.speak(utterThis);
+      if (!synth.speaking  && currenttxt.value === ''){
+        clearInterval(r);
+      } else {
+        synth.pause();
+        synth.resume();
+      }
+    }, 14000);
+  }
+}
+
 function generateUniqueId() {
   const timestamp = Date.now();
   const randomNumber = Math.random();
@@ -39,25 +67,8 @@ function generateUniqueId() {
   return `id-${timestamp}-${hexadecimalString}`;
 }
 
-function speak(text)  {
-  window.speechSynthesis.cancel();
-
-  if (window.speechSynthesis.speaking) {
-    console.error("speechSynthesis.speaking");
-    return;
-  }
-  else {
-    console.log("start speaking....", text)
-    let speech = new SpeechSynthesisUtterance();
-    speech.text = "Chatbot says "+ text;
-    speech.lang = "en-US";
-    const utterThis = new SpeechSynthesisUtterance(speech);
-    window.speechSynthesis.speak(speech);
-  }
-}
 
 function chatStripe(isAi, value, uniqueId) {
-  
   return (
     `
     <div class="wrapper ${isAi && 'ai'}">
@@ -66,8 +77,8 @@ function chatStripe(isAi, value, uniqueId) {
              <i class="${isAi ? bot : user}"></i>
         </div>
         <div class="message" id=${uniqueId}>${value}</div>
-        <div style="visibility: ${!isAi && 'hidden'}">
-          <i id="playButton" class="${isPlaying ? pauseBtn : playBtn}" onclick='window.speechSynthesis.pause()'></i>
+        <div class="play" style="display:${isAi ? 'flex' : 'none'}" id="speakericon${uniqueId}">
+        <i class="${isPlaying ? pause_btn : play_btn}"></i>
         </div>
       </div>
     </div>
@@ -103,11 +114,13 @@ const handleSubmit = async (e) => {
   })
   clearInterval(loadInterval);
   messageDiv.innerHTML = ''; // clear the ..
+  speakericondiv = document.getElementById(`speakericon${uniqueId}`);
+  speakericondiv.addEventListener('click', speakText);
   if (response.ok) {
     const data = await response.json();
     const parsedData = data.bot.trim();
+    currenttxt = parsedData;
     typeText(messageDiv, parsedData);
-    speak(parsedData)
   } else {
     const err = await response.text();
     messageDiv.innerHTML = "Something went wrong";
@@ -115,11 +128,12 @@ const handleSubmit = async (e) => {
   }
 }
 
+
+// handlers
+
 form.addEventListener('submit', handleSubmit);
 form.addEventListener('keyup', (e) => {
   if (e.keyCode === 13) {  //enter key
     handleSubmit(e);
   }
 })
-
-

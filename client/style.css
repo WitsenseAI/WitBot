@@ -91,7 +91,17 @@ body {
   height: 36px;
   border-radius: 5px;
 
-  background: #a9ccb3;
+  background: #867fbf;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.play {
+  background: #e980ad;
+  width: 36px;
+  height: 36px;
+  border-radius: 5px;
 
   display: flex;
   justify-content: center;
