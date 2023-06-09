@@ -37,6 +37,7 @@ function typeText(element, text) {
 
 const speakText = async (e) => {
   e.preventDefault();
+  speakericondiv.style.display = 'none';
   const synth = window.speechSynthesis;
   synth.cancel();
   console.log("speaking about to start ...")
@@ -89,6 +90,11 @@ function chatStripe(isAi, value, uniqueId) {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+  console.log(speakericondiv)
+  if (speakericondiv !== undefined) {
+    speakericondiv.style.display = 'none';
+
+  }  
   console.log("submit")
   const data = new FormData(form);
 
