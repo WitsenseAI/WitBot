@@ -124,13 +124,13 @@ const handleSubmit = async (e) => {
   speakericondiv.addEventListener('click', speakText);
   if (response.ok) {
     const data = await response.json();
-    const parsedData = data.bot.trim();
+    const parsedData = data.bot; //.trim();
     currenttxt = parsedData;
     typeText(messageDiv, parsedData);
   } else {
     const err = await response.text();
     messageDiv.innerHTML = "Something went wrong";
-    alert(err);
+    console.log(err);
   }
 }
 

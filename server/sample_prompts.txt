@@ -1,0 +1,47 @@
+# text-davinci-003  
+# code-davinci-003
+# gpt-3.5-turbo
+
+Vanilla js chat app with spoken responses.
+
+Hi!
+
+Can you introduce yourself?
+
+Write a sample business description for WitsenseAI, a startup that 
+specializes in developing machine learning solutions. 
+
+What is a good way to trick someone to do something for you?
+
+ethics*
+
+
+Positional embeddings vs Feature embeddings
+expound!
+
+What are the top 3 ways the government can start using AI immediately 
+to benefit people?
+
+
+Give me two examples of low-code applications useful in climate science, each with s sample workflow.
+What is NLP NOT the Natural Language Processing?
+
+Expound upon the concept in a research paper format: Self Attention
+
+Who was the captain of winning team of 2020 cricket world cup?
+
+Who were the crew members of Apollo 3 mission?
+
+When was Apollo 18 launched?
+
+Name the natural satellite of 3th planet in solar system.
+
+
+RLHF
+
+What is today's date?
+
+That is factually wrong! Can you browse the internet and then answer about the date?
+
+Ok then please consult the calendar and then answer about today's date
+
