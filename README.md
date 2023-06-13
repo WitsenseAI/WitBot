@@ -1,5 +1,5 @@
 # WitBot 
-WitBot is a vanilla chatbot  application that can be connected to any LLM API endpoint. Currently it supports OpenAI API endpoints.
+WitBot is a vanilla chatbot  application that can be connected to any LLM API endpoint. Currently it supports OpenAI API endpoints, specifically the *completions endpoint which is the core of OpenAI API .
 
 ## Development version
 Following steps are needed to install client and server components for WitBot which intends to be a generic chat app.
@@ -11,6 +11,7 @@ Following steps are needed to install client and server components for WitBot wh
 npm create vite@latest client --template vanilla
 ```
 If you cloned the repo, you should skip the above step.
+
 3. The client component implements the basic chat interactions between human-user and AI bot. The code is in  `client/main.js`
 
 To start and test the client, use following -
@@ -49,3 +50,8 @@ docker compose up
 You can open the app at http://localhost:5173/
 
 If you wish to deploy this app in production, you may need to specify the hostname in docker-compose.yaml.
+
+## code can be made to work with following LLMs
+
+OpenAI text-davinci-003
+OpenAI gpt-3.5-turbo
